@@ -624,7 +624,7 @@ pp.parseClassElement = function(constructorAllowsSuper) {
   let {key} = method
   let allowsDirectSuper = false
   if (!method.computed && !method.static && (key.type === "Identifier" && key.name === "constructor" ||
-      key.type === "Literal" && key.value === "constructor")) {
+      key.type === "Stringliteral" && key.value === "constructor")) {
     if (method.kind !== "method") this.raise(key.start, "Constructor can't have get/set modifier")
     if (isGenerator) this.raise(key.start, "Constructor can't be a generator")
     if (isAsync) this.raise(key.start, "Constructor can't be an async method")
@@ -855,7 +855,7 @@ pp.adaptDirectivePrologue = function(statements) {
 pp.isDirectiveCandidate = function(statement) {
   return (
     statement.type === "ExpressionStatement" &&
-    statement.expression.type === "Literal" &&
+    statement.expression.type === "Stringliteral" &&
     typeof statement.expression.value === "string" &&
     // Reject parenthesized strings.
     (this.input[statement.start] === "\"" || this.input[statement.start] === "'")

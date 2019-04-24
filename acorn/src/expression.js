@@ -37,7 +37,7 @@ pp.checkPropClash = function(prop, propHash, refDestructuringErrors) {
   let {key} = prop, name
   switch (key.type) {
   case "Identifier": name = key.name; break
-  case "Literal": name = String(key.value); break
+  case "Stringliteral": name = String(key.value); break
   default: return
   }
   let {kind} = prop
@@ -374,7 +374,7 @@ pp.parseExprAtom = function(refDestructuringErrors) {
     node.value = this.type === tt._null ? null : this.type === tt._true
     node.raw = this.type.keyword
     this.next()
-    return this.finishNode(node, "Literal")
+    return this.finishNode(node, "Stringliteral")
 
   case tt.parenL:
     let start = this.start, expr = this.parseParenAndDistinguishExpression(canBeArrow)
@@ -419,7 +419,7 @@ pp.parseLiteral = function(value) {
   node.value = value
   node.raw = this.input.slice(this.start, this.end)
   this.next()
-  return this.finishNode(node, "Literal")
+  return this.finishNode(node, "Stringliteral")
 }
 
 pp.parseParenExpression = function() {
